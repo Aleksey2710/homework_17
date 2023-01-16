@@ -1,13 +1,19 @@
 package com.skypro.homework_17;
+/**
+ * Гоночный заезд.
+ */
 
 import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.drivers.DriverCategoryB;
 import com.skypro.homework_17.drivers.DriverCategoryC;
 import com.skypro.homework_17.drivers.DriverCategoryD;
-import com.skypro.homework_17.transport.Buses;
-import com.skypro.homework_17.transport.Cars;
-import com.skypro.homework_17.transport.Trucks;
-import com.sun.jdi.connect.Transport;
+import com.skypro.homework_17.transport.Bus;
+import com.skypro.homework_17.transport.Car;
+import com.skypro.homework_17.transport.Transport;
+import com.skypro.homework_17.transport.Truck;
+import com.skypro.homework_17.types.BodyType;
+import com.skypro.homework_17.types.CapacityBus;
+import com.skypro.homework_17.types.LoadCapacity;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,50 +21,58 @@ public class Main {
         DriverCategoryC petrov = new DriverCategoryC("Петров Петр Петрович", true, 2);
         DriverCategoryD vasilev = new DriverCategoryD("Васильев Василий Васильевич", true, 3);
 
-        Cars hyundai = new Cars("Hyundai", "Avante", 1.6, ivanov);
-        Cars lada = new Cars("Lada", "Granta", 1.7, ivanov);
-        Cars audi = new Cars("Audi", "A8 50 L TDI quattro", 3.0, ivanov);
-        Cars bmw = new Cars("BMW", "Z8", 3.0, ivanov);
+        Car hyundai = new Car("Hyundai", "Avante", 1.6, ivanov, BodyType.SEDAN);
+        Car lada = new Car("Lada", "Granta", 1.7, ivanov, BodyType.HATCHBACK);
+        Car audi = new Car("Audi", "A8 50 L TDI quattro", 3.0, ivanov, BodyType.COUPE);
+        Car bmw = new Car("BMW", "Z8", 3.0, ivanov, BodyType.UNIVERSAL);
 
-        Trucks kamAZ = new Trucks("KamAZ", "65115", 6.7, petrov);
-        Trucks mercedesBenz = new Trucks("Mercedes-Benz", "Arocs", 12.8, petrov);
-        Trucks man = new Trucks("MAN", "TGS 41.400", 12.4, petrov);
-        Trucks freightliner = new Trucks("Freightliner", "FLD", 14.0, petrov);
+        Truck kamAZ = new Truck("KamAZ", "65115", 6.7, petrov, LoadCapacity.N1);
+        Truck mercedesBenz = new Truck("Mercedes-Benz", "Arocs", 12.8, petrov, LoadCapacity.N2);
+        Truck man = new Truck("MAN", "TGS 41.400", 12.4, petrov, LoadCapacity.N3);
+        Truck freightliner = new Truck("Freightliner", "FLD", 14.0, petrov, LoadCapacity.N3);
 
-        Buses blueBird = new Buses("Blue", "Bird TC/2000", 7.0, vasilev);
-        Buses volgabus = new Buses("Volgabus", "Ситиритм 12 GLE", 8.4, vasilev);
-        Buses gm = new Buses("GM", "New Look bus", 9.0, vasilev);
-        Buses ikarus = new Buses("Ikarus", "250", 10.7, vasilev);
+        Bus blueBird = new Bus("Blue", "Bird TC/2000", 7.0, vasilev, CapacityBus.SMALL);
+        Bus volgabus = new Bus("Volgabus", "Ситиритм 12 GLE", 8.4, vasilev, CapacityBus.BIG);
+        Bus gm = new Bus("GM", "New Look bus", 9.0, vasilev, CapacityBus.MIDDLE);
+        Bus ikarus = new Bus("Ikarus", "250", 10.7, vasilev, CapacityBus.VERY_BIG);
 
-        separator();
-        System.out.println(man);
-        man.startMoving();
-        man.getBestLapTime();
-        man.getMaxSpeed();
-        man.getPitStop();
-        man.finishMoving();
 
-        separator();
-        System.out.println(bmw);
-        bmw.startMoving();
-        bmw.getBestLapTime();
-        bmw.getMaxSpeed();
-        bmw.getPitStop();
-        bmw.finishMoving();
+        printAllInfo(bmw);
+        printAllInfo(hyundai);
+        printAllInfo(lada);
+        printAllInfo(audi);
 
-        separator();
-        System.out.println(volgabus);
-        volgabus.startMoving();
-        volgabus.getBestLapTime();
-        volgabus.getMaxSpeed();
-        volgabus.getPitStop();
-        volgabus.finishMoving();
+        printAllInfo(kamAZ);
+        printAllInfo(mercedesBenz);
+        printAllInfo(man);
+        printAllInfo(freightliner);
 
-        separator();
-
-        System.out.println("водитель " + ivanov.getFullName() + " управляет автомобилем " + bmw + " и будет участвовать в заезде.");
+        printAllInfo(blueBird);
+        printAllInfo(volgabus);
+        printAllInfo(ikarus);
+        printAllInfo(gm);
     }
+
     public static void separator() {
         System.out.println("==================================================================");
+    }
+
+    public static void printInfo(Transport<?> transport) {
+        System.out.println("Водитель " + transport.getDriver().getFullName() + " управляет автомобилем " + transport.getBrand() + " " + transport.getModel() + " и будет участвовать в заезде.");
+    }
+
+    public static void printAllInfo(Transport<?> transport) {
+        separator();
+        System.out.println(transport);
+        transport.printType();
+        separator();
+        transport.startMoving();
+        transport.getBestLapTime();
+        transport.getMaxSpeed();
+        transport.getPitStop();
+        transport.finishMoving();
+        separator();
+        printInfo(transport);
+        separator();
     }
 }

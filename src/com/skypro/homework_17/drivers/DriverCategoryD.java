@@ -1,5 +1,9 @@
 package com.skypro.homework_17.drivers;
 
+/**
+ * Категория D.
+ */
+
 public class DriverCategoryD extends Driver{
     public DriverCategoryD(String fullName, boolean driverLicense, int experience) {
         super(fullName, driverLicense, experience);

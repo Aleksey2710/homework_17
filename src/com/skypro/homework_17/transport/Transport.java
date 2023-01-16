@@ -1,7 +1,12 @@
 package com.skypro.homework_17.transport;
+/**
+ * Транспорт (общий для всех видов машин).
+ */
 
 import com.skypro.homework_17.Competing;
 import com.skypro.homework_17.drivers.Driver;
+
+import java.util.Objects;
 
 public abstract class Transport<D extends Driver> implements Competing {
 
@@ -84,8 +89,27 @@ public abstract class Transport<D extends Driver> implements Competing {
         System.out.println("Максимальная скорость у " + getBrand() + " " + getModel() + " равна - " + bestMaxSpeed + " км/ч.");
     }
 
+    public D getDriver() {
+        return driver;
+    }
+
+    public abstract void printType();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transport<?> transport = (Transport<?>) o;
+        return Double.compare(transport.engineVolume, engineVolume) == 0 && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model) && Objects.equals(driver, transport.driver);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(brand, model, engineVolume, driver);
+    }
+
     @Override
     public String toString() {
-        return getBrand() + " " + getModel() + ", " + getEngineVolume();
+        return "Транспорт " + getBrand() + " " + getModel() + ", объем двигателя " + getEngineVolume();
     }
 }

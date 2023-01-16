@@ -1,5 +1,9 @@
 package com.skypro.homework_17.drivers;
 
+/**
+ * Водитель (общий для всех категорий.
+ */
+
 public abstract class Driver {
 
     private String fullName;
@@ -39,7 +43,7 @@ public abstract class Driver {
     }
 
     public void setDriverLicense(boolean driverLicense) {
-        if (driverLicense == true) {
+        if (driverLicense) {
             this.driverLicense = driverLicense;
         } else {
             System.out.println("Водитель не может участвовать в гонках, т.к. нет водительских прав!");
