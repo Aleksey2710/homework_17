@@ -5,6 +5,7 @@ package com.skypro.homework_17.transport;
 
 import com.skypro.homework_17.Competing;
 import com.skypro.homework_17.drivers.Driver;
+import com.skypro.homework_17.exceptions.NotDriverCategoryException;
 
 import java.util.Objects;
 
@@ -94,6 +95,8 @@ public abstract class Transport<D extends Driver> implements Competing {
     }
 
     public abstract void printType();
+
+    public abstract boolean getDiagnosed() throws NotDriverCategoryException;
 
     @Override
     public boolean equals(Object o) {

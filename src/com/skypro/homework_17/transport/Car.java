@@ -3,7 +3,10 @@ package com.skypro.homework_17.transport;
  * Автомобиль.
  */
 
+import com.skypro.homework_17.Main;
+import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.drivers.DriverCategoryB;
+import com.skypro.homework_17.exceptions.NotDriverCategoryException;
 import com.skypro.homework_17.types.BodyType;
 
 public class Car extends Transport<DriverCategoryB> {
@@ -43,4 +46,10 @@ public class Car extends Transport<DriverCategoryB> {
             System.out.println(getBodyType());
         }
     }
+
+    @Override
+    public boolean getDiagnosed() {
+        return Math.random() > 0.5;
+    }
+
 }

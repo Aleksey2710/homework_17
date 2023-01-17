@@ -1,12 +1,16 @@
 package com.skypro.homework_17.drivers;
 
+import com.skypro.homework_17.categorys.Category;
+
 /**
  * Категория С.
  */
 
-public class DriverCategoryC extends Driver{
-    public DriverCategoryC(String fullName, boolean driverLicense, int experience) {
-        super(fullName, driverLicense, experience);
+public class DriverCategoryC extends Driver {
+
+
+    public DriverCategoryC(String fullName, boolean driverLicense, int experience, Category category) {
+        super(fullName, driverLicense, experience, category);
     }
 
     @Override

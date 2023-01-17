@@ -3,7 +3,9 @@ package com.skypro.homework_17.transport;
  * Грузовик.
  */
 
+import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.drivers.DriverCategoryC;
+import com.skypro.homework_17.exceptions.NotDriverCategoryException;
 import com.skypro.homework_17.types.LoadCapacity;
 
 public class Truck extends Transport<DriverCategoryC> {
@@ -42,4 +44,10 @@ public class Truck extends Transport<DriverCategoryC> {
             System.out.println(getLoadCapacity());
         }
     }
+
+    @Override
+    public boolean getDiagnosed() {
+        return Math.random() > 0.5;
+    }
+
 }

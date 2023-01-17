@@ -3,10 +3,11 @@ package com.skypro.homework_17.transport;
  * Автобус.
  */
 
+import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.drivers.DriverCategoryD;
 import com.skypro.homework_17.types.CapacityBus;
 
-public class Bus extends Transport<DriverCategoryD>{
+public class Bus extends Transport<DriverCategoryD> {
     CapacityBus capacityBus;
 
     public Bus(String brand, String model, double engineVolume, DriverCategoryD driverCategoryD, CapacityBus capacityBus) {
@@ -42,4 +43,11 @@ public class Bus extends Transport<DriverCategoryD>{
             System.out.println(getCapacityBus());
         }
     }
+
+    @Override
+    public boolean getDiagnosed() {
+        System.out.println("Автобус " + getBrand() + " " + getModel() + " в диагностике не нуждается!");
+        return true;
+    }
+
 }

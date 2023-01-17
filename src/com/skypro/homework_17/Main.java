@@ -3,10 +3,15 @@ package com.skypro.homework_17;
  * Гоночный заезд.
  */
 
+import com.skypro.homework_17.categorys.Category;
+import com.skypro.homework_17.categorys.CategoryB;
+import com.skypro.homework_17.categorys.CategoryC;
+import com.skypro.homework_17.categorys.CategoryD;
 import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.drivers.DriverCategoryB;
 import com.skypro.homework_17.drivers.DriverCategoryC;
 import com.skypro.homework_17.drivers.DriverCategoryD;
+import com.skypro.homework_17.exceptions.NotDriverCategoryException;
 import com.skypro.homework_17.transport.Bus;
 import com.skypro.homework_17.transport.Car;
 import com.skypro.homework_17.transport.Transport;
@@ -17,9 +22,10 @@ import com.skypro.homework_17.types.LoadCapacity;
 
 public class Main {
     public static void main(String[] args) {
-        DriverCategoryB ivanov = new DriverCategoryB("Иванов Иван Иванович", true, 1);
-        DriverCategoryC petrov = new DriverCategoryC("Петров Петр Петрович", true, 2);
-        DriverCategoryD vasilev = new DriverCategoryD("Васильев Василий Васильевич", true, 3);
+
+        DriverCategoryB ivanov = new DriverCategoryB("Иванов Иван Иванович", true, 1, new CategoryB("категория В"));
+        DriverCategoryC petrov = new DriverCategoryC("Петров Петр Петрович", true, 2, new CategoryC("категория С"));
+        DriverCategoryD vasilev = new DriverCategoryD("Васильев Василий Васильевич", true, 3, new CategoryD("категория D"));
 
         Car hyundai = new Car("Hyundai", "Avante", 1.6, ivanov, BodyType.SEDAN);
         Car lada = new Car("Lada", "Granta", 1.7, ivanov, BodyType.HATCHBACK);
@@ -51,17 +57,21 @@ public class Main {
         printAllInfo(volgabus);
         printAllInfo(ikarus);
         printAllInfo(gm);
+
+        getLicense(bmw, hyundai, lada, audi,
+                kamAZ, mercedesBenz, man, freightliner,
+                blueBird, volgabus, ikarus, gm);
     }
 
     public static void separator() {
         System.out.println("==================================================================");
     }
 
-    public static void printInfo(Transport<?> transport) {
+    public static void printInfo(com.skypro.homework_17.transport.Transport<?> transport) {
         System.out.println("Водитель " + transport.getDriver().getFullName() + " управляет автомобилем " + transport.getBrand() + " " + transport.getModel() + " и будет участвовать в заезде.");
     }
 
-    public static void printAllInfo(Transport<?> transport) {
+    public static void printAllInfo(com.skypro.homework_17.transport.Transport<?> transport) {
         separator();
         System.out.println(transport);
         transport.printType();
@@ -74,5 +84,25 @@ public class Main {
         separator();
         printInfo(transport);
         separator();
+    }
+
+    public static void getLicense(Transport... transports) {
+        int counts = 0;
+        for (Transport transport : transports) {
+            service(transport);
+            counts++;
+        }
+        System.out.println(counts);
+    }
+
+    public static void service(Transport transport) {
+        try {
+            if (!transport.getDiagnosed()) {
+                throw new NotDriverCategoryException("Транспорт " + transport.getBrand() + " " +
+                        transport.getModel() + " диагностику не прошел!");
+            }
+        } catch (NotDriverCategoryException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

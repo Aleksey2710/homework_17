@@ -1,10 +1,12 @@
 package com.skypro.homework_17.drivers;
 
+import com.skypro.homework_17.categorys.Category;
+
 /**
- * Водитель (общий для всех категорий.
+ * Водитель (общий для всех категорий).
  */
 
-public abstract class Driver {
+public abstract class Driver<C extends Category> {
 
     private String fullName;
 
@@ -12,12 +14,27 @@ public abstract class Driver {
 
     private int experience;
 
+    private C category;
+
     private static final String DEFAULT_VALUE = "default";
 
-    public Driver(String fullName, boolean driverLicense, int experience) {
+    public Driver(String fullName, boolean driverLicense, int experience, C category) {
         setFullName(fullName);
         setDriverLicense(driverLicense);
         setExperience(experience);
+        setCategory(category);
+    }
+
+    public C getCategory() {
+        return category;
+    }
+
+    public void setCategory(C category) {
+        if (category == null) {
+            throw new IllegalArgumentException("Нужно указать категорию прав!");
+        } else {
+            this.category = category;
+        }
     }
 
     public abstract void startMoving();
@@ -43,11 +60,7 @@ public abstract class Driver {
     }
 
     public void setDriverLicense(boolean driverLicense) {
-        if (driverLicense) {
-            this.driverLicense = driverLicense;
-        } else {
-            System.out.println("Водитель не может участвовать в гонках, т.к. нет водительских прав!");
-        }
+        this.driverLicense = driverLicense;
     }
 
     public int getExperience() {
