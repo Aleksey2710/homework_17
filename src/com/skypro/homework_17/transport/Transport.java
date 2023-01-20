@@ -6,7 +6,10 @@ package com.skypro.homework_17.transport;
 import com.skypro.homework_17.Competing;
 import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.exceptions.NotDriverCategoryException;
+import com.skypro.homework_17.mechanic.Mechanic;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Transport<D extends Driver> implements Competing {
@@ -16,6 +19,9 @@ public abstract class Transport<D extends Driver> implements Competing {
     private double engineVolume;
 
     private final D driver;
+
+    private final List<Driver<?>> drivers;
+    private final List<Mechanic<?>> mechanics;
 
     private static final String DEFAULT_VALUE = "default";
     private static final double DEFAULT_ENGINE_VOLUME = 1.5;
@@ -29,6 +35,9 @@ public abstract class Transport<D extends Driver> implements Competing {
         setModel(model);
         setEngineVolume(engineVolume);
         this.driver = driver;
+        drivers = new LinkedList<>();
+        mechanics = new LinkedList<>();
+
     }
 
     public String getBrand() {
@@ -97,6 +106,21 @@ public abstract class Transport<D extends Driver> implements Competing {
     public abstract void printType();
 
     public abstract boolean getDiagnosed() throws NotDriverCategoryException;
+
+//    public void addMechanic(Mechanic<?> mechanic) {
+//        mechanics.add(mechanic);
+//    }
+//    public void addDriver(Driver<?> driver) {
+//        drivers.add(driver);
+//    }
+
+    public List<Driver<?>> getDrivers() {
+        return drivers;
+    }
+
+    public List<Mechanic<?>> getMechanics() {
+        return mechanics;
+    }
 
     @Override
     public boolean equals(Object o) {

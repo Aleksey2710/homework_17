@@ -14,4 +14,9 @@ public abstract class Category {
     public String getCategory() {
         return category;
     }
+
+    @Override
+    public String toString() {
+        return category;
+    }
 }

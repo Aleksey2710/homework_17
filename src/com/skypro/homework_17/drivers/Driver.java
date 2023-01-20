@@ -74,4 +74,12 @@ public abstract class Driver<C extends Category> {
             this.experience = experience;
         }
     }
+
+    @Override
+    public String toString() {
+        return fullName +
+                ", права " + driverLicense +
+                ", стаж вождения " + experience + " лет" +
+                ", категория " + category;
+    }
 }
