@@ -2,6 +2,8 @@ package com.skypro.homework_17.drivers;
 
 import com.skypro.homework_17.categorys.Category;
 
+import java.util.Objects;
+
 /**
  * Водитель (общий для всех категорий).
  */
@@ -73,6 +75,19 @@ public abstract class Driver<C extends Category> {
         } else {
             this.experience = experience;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Driver<?> driver = (Driver<?>) o;
+        return driverLicense == driver.driverLicense && experience == driver.experience && Objects.equals(fullName, driver.fullName) && Objects.equals(category, driver.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, driverLicense, experience, category);
     }
 
     @Override

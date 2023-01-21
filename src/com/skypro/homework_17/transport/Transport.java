@@ -8,9 +8,7 @@ import com.skypro.homework_17.drivers.Driver;
 import com.skypro.homework_17.exceptions.NotDriverCategoryException;
 import com.skypro.homework_17.mechanic.Mechanic;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Transport<D extends Driver> implements Competing {
 
@@ -20,8 +18,11 @@ public abstract class Transport<D extends Driver> implements Competing {
 
     private final D driver;
 
-    private final List<Driver<?>> drivers;
-    private final List<Mechanic<?>> mechanics;
+    private final Set<Driver<?>> drivers;
+    private final Set<Mechanic<?>> mechanics;
+
+    private final Map<Transport<?>, Mechanic<?>> mechanicMap = new HashMap<>();
+
 
     private static final String DEFAULT_VALUE = "default";
     private static final double DEFAULT_ENGINE_VOLUME = 1.5;
@@ -35,8 +36,8 @@ public abstract class Transport<D extends Driver> implements Competing {
         setModel(model);
         setEngineVolume(engineVolume);
         this.driver = driver;
-        drivers = new LinkedList<>();
-        mechanics = new LinkedList<>();
+        drivers = new HashSet<>();
+        mechanics = new HashSet<>();
 
     }
 
@@ -87,7 +88,7 @@ public abstract class Transport<D extends Driver> implements Competing {
     public void getBestLapTime() {
         int minTime = 300;
         int maxTime = 500;
-        int bestLapTime = (int)(minTime + (maxTime - minTime) * Math.random());
+        int bestLapTime = (int) (minTime + (maxTime - minTime) * Math.random());
         System.out.println("Лучшее время круга у " + getBrand() + " " + getModel() + " равно - " + bestLapTime + " секунд.");
     }
 
@@ -95,7 +96,7 @@ public abstract class Transport<D extends Driver> implements Competing {
     public void getMaxSpeed() {
         int minSpeed = 60;
         int maxSpeed = 200;
-        int bestMaxSpeed = (int)(minSpeed + (maxSpeed - minSpeed) * Math.random());
+        int bestMaxSpeed = (int) (minSpeed + (maxSpeed - minSpeed) * Math.random());
         System.out.println("Максимальная скорость у " + getBrand() + " " + getModel() + " равна - " + bestMaxSpeed + " км/ч.");
     }
 
@@ -114,12 +115,20 @@ public abstract class Transport<D extends Driver> implements Competing {
 //        drivers.add(driver);
 //    }
 
-    public List<Driver<?>> getDrivers() {
+    public Set<Driver<?>> getDrivers() {
         return drivers;
     }
 
-    public List<Mechanic<?>> getMechanics() {
+    public Set<Mechanic<?>> getMechanics() {
         return mechanics;
+    }
+
+    public Map<Transport<?>, Mechanic<?>> getMechanicMap() {
+        return mechanicMap;
+    }
+
+    public void searchMechanics(Transport<?> transport) {
+        System.out.println(getMechanics().contains(transport));
     }
 
     @Override
@@ -127,12 +136,12 @@ public abstract class Transport<D extends Driver> implements Competing {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transport<?> transport = (Transport<?>) o;
-        return Double.compare(transport.engineVolume, engineVolume) == 0 && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model) && Objects.equals(driver, transport.driver);
+        return Double.compare(transport.engineVolume, engineVolume) == 0 && Objects.equals(brand, transport.brand) && Objects.equals(model, transport.model) && Objects.equals(driver, transport.driver) && Objects.equals(drivers, transport.drivers) && Objects.equals(mechanics, transport.mechanics) && Objects.equals(mechanicMap, transport.mechanicMap);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brand, model, engineVolume, driver);
+        return Objects.hash(brand, model, engineVolume, driver, drivers, mechanics, mechanicMap);
     }
 
     @Override

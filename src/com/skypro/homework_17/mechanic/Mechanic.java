@@ -6,6 +6,8 @@ package com.skypro.homework_17.mechanic;
 import com.skypro.homework_17.exceptions.NotDriverCategoryException;
 import com.skypro.homework_17.transport.Transport;
 
+import java.util.Objects;
+
 public class Mechanic<T extends Transport> {
 
     private final String fullName;
@@ -43,6 +45,19 @@ public class Mechanic<T extends Transport> {
     public void fixTheCar(T transport) {
         System.out.println("Механик " + getFullName() + " из компании " + getCompany() + " починил " +
                 transport.getBrand() + " " + transport.getModel());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mechanic<?> mechanic = (Mechanic<?>) o;
+        return Objects.equals(fullName, mechanic.fullName) && Objects.equals(company, mechanic.company);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, company);
     }
 
     @Override

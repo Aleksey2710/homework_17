@@ -21,7 +21,7 @@ import com.skypro.homework_17.types.BodyType;
 import com.skypro.homework_17.types.CapacityBus;
 import com.skypro.homework_17.types.LoadCapacity;
 
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws NotDriverCategoryException {
@@ -164,11 +164,23 @@ public class Main {
             if (!transport.getDiagnosed()) {
                 transport.getPitStop();
                 separator();
-            }else {
+            } else {
                 printDriverAndMechanic(transport);
                 separator();
             }
         }
+
+        Set<Transport<?>> transportsSet = Set.of(bmw, hyundai, lada, audi,
+                kamAZ, mercedesBenz, man, freightliner,
+                blueBird, volgabus, ikarus, gm);
+
+        for (Transport<?> transport : transportsSet) {
+            System.out.println(transport);
+        }
+
+        Map<Transport<?>, Mechanic<?>> mechanicMap = new HashMap<>();
+        mechanicMap.put(bmw, mike);
+        System.out.println(mechanicMap.get(bmw));
 
 
         long after = System.currentTimeMillis();
@@ -181,12 +193,6 @@ public class Main {
         System.out.println("Механики - " + transport.getMechanics());
     }
 
-//    public static void getPitStop(Transport<?> transport) throws NotDriverCategoryException {
-//        if (!transport.getDiagnosed()) {
-//            transport.getPitStop();
-//        }
-//
-//    }
 
     public static void separator() {
         System.out.println("==================================================================");
