@@ -2,7 +2,9 @@ package com.skypro.homework_17.drivers;
 
 import com.skypro.homework_17.categorys.Category;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Водитель (общий для всех категорий).
@@ -18,6 +20,8 @@ public abstract class Driver<C extends Category> {
 
     private C category;
 
+    private final Set<Driver<?>>drivers;
+
     private static final String DEFAULT_VALUE = "default";
 
     public Driver(String fullName, boolean driverLicense, int experience, C category) {
@@ -25,6 +29,11 @@ public abstract class Driver<C extends Category> {
         setDriverLicense(driverLicense);
         setExperience(experience);
         setCategory(category);
+        drivers = new HashSet<>();
+    }
+
+    public Set<Driver<?>> getDrivers() {
+        return drivers;
     }
 
     public C getCategory() {

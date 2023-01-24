@@ -182,6 +182,18 @@ public class Main {
         mechanicMap.put(bmw, mike);
         System.out.println(mechanicMap.get(bmw));
 
+        Set<Driver<?>> drivers = Set.of(ivanov,petrov,vasilev);
+
+        Iterator<Driver<?>> iterator = drivers.iterator();//Выводим всех водителей в консоль через итератор, как в задании.
+        while (iterator.hasNext()) {
+            Driver<?>driver = iterator.next();
+            System.out.println(driver);
+        }
+
+        for (Driver<?> driver : drivers) {//Выводим всех водителей в консоль через форейч, сокращенный вариант.
+            System.out.println(driver);
+        }
+
 
         long after = System.currentTimeMillis();
         System.out.println("Время выполнения программы в миллисекундах равно " + (after - before) + " миллисекунд");
